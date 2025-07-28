@@ -19,7 +19,8 @@ material3 = "1.2.1"
 ktor = "2.3.4"
 serialization = "1.5.1"
 kamel = "0.5.0"
-compose = "1.6.10"
+compose = "1.6.7"
+navigation = "2.7.7"
 
 [libraries]
 kotlin-test = { module = "org.jetbrains.kotlin:kotlin-test", version.ref = "kotlin" }
@@ -42,10 +43,12 @@ ktor-serialization-kotlinx-json = { module = "io.ktor:ktor-serialization-kotlinx
 ktor-client-okhttp = { module = "io.ktor:ktor-client-okhttp", version.ref = "ktor" }
 ktor-client-darwin = { module = "io.ktor:ktor-client-darwin", version.ref = "ktor" }
 kamel-image = { module = "media.kamel:kamel-image", version.ref = "kamel" }
-compose-material-icons-core = { module = "androidx.compose.material:material-icons-core", version = "1.6.1" }
-compose-material-icons-extended = { module = "androidx.compose.material:material-icons-extended", version = "1.6.1" }
-
 kotlinx-serialization-json = { module = "org.jetbrains.kotlinx:kotlinx-serialization-json", version.ref = "serialization" }
+compose-material-icons-core = { module = "androidx.compose.material:material-icons-core", version.ref = "compose" }
+compose-material-icons-extended = { module = "androidx.compose.material:material-icons-extended", version = "compose" }
+compose-ui-tooling = { module = "androidx.compose.ui:ui-tooling", version = "compose" }
+compose-ui-tooling-preview = { module = "androidx.compose.ui:ui-tooling-preview", version = "compose" }
+navigation-compose = { module = "androidx.navigation:navigation-compose", version.ref = "navigation" }
 
 [plugins]
 androidApplication = { id = "com.android.application", version.ref = "agp" }

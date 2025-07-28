@@ -64,6 +64,7 @@ kotlin {
             implementation(libs.ktor.client.okhttp)
             implementation(libs.compose.material.icons.core)
             implementation(libs.compose.material.icons.extended)
+            implementation(libs.navigation.compose)
         }
         commonMain.dependencies {
             implementation(compose.runtime)
@@ -81,7 +82,6 @@ kotlin {
             implementation(libs.kotlinx.serialization.json)
             implementation(libs.kamel.image)
             implementation(libs.kotlinx.serialization.json)
-
         }
         commonTest.dependencies {
             implementation(libs.kotlin.test)
@@ -91,6 +91,7 @@ kotlin {
             implementation(libs.kotlinx.coroutinesSwing)
             implementation(libs.compose.material.icons.core)
             implementation(libs.compose.material.icons.extended)
+            implementation(libs.navigation.compose)
         }
         iosMain.dependencies {
             implementation(libs.ktor.client.darwin)
