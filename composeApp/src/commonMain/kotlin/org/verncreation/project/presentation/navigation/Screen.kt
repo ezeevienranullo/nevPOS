@@ -15,6 +15,7 @@ import androidx.compose.material.icons.filled.PointOfSale
 //}
 
 sealed class Screen(val route: String) {
+    object Login : Screen("login")
     object Home : Screen("home")
     object Sale : Screen("sale")
     object NewSale : Screen("new_sale")

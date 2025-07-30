@@ -1,26 +1,12 @@
 package org.verncreation.project.presentation
 
-import androidx.compose.animation.AnimatedVisibility
-import androidx.compose.foundation.Image
-import androidx.compose.foundation.layout.Box
-import androidx.compose.foundation.layout.Column
-import androidx.compose.foundation.layout.fillMaxSize
-import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.padding
-import androidx.compose.foundation.layout.safeContentPadding
-import androidx.compose.material3.Button
 import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.Scaffold
-import androidx.compose.material3.Text
 import androidx.compose.runtime.*
-import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
-import org.jetbrains.compose.resources.painterResource
 import org.jetbrains.compose.ui.tooling.preview.Preview
 
-import nevpos.composeapp.generated.resources.Res
-import nevpos.composeapp.generated.resources.compose_multiplatform
-import org.verncreation.project.Greeting
 import org.verncreation.project.data.model.Sale
 import org.verncreation.project.presentation.component.BottomNavigationBar
 import org.verncreation.project.presentation.navigation.Screen
@@ -30,11 +16,13 @@ import org.verncreation.project.presentation.ui.sale.SaleScreen
 import org.verncreation.project.presentation.ui.settings.SettingsScreen
 import androidx.navigation.compose.NavHost
 import androidx.navigation.compose.rememberNavController
-import androidx.navigation.NavController
 import androidx.navigation.NavHostController
 import androidx.navigation.compose.currentBackStackEntryAsState
 import androidx.navigation.compose.composable
+import org.verncreation.project.data.repository.LoginUseCaseImpl
 import org.verncreation.project.presentation.ui.innerScreen.newSale.NewSaleScreenWrapper
+import org.verncreation.project.presentation.ui.login.LoginScreenWrapper
+import org.verncreation.project.presentation.ui.login.LoginViewModel
 
 
 @Composable
@@ -50,19 +38,29 @@ fun App() {
         Sale("0999", "370.00"),
         Sale("0998", "540.00")
     )
+    val currentRoute = currentRoute(navController)
 
+    val bottomNavRoutes = listOf(
+        Screen.Home.route,
+        Screen.Sale.route,
+        Screen.NewSale.route,
+        Screen.Products.route,
+        Screen.Settings.route
+    )
     MaterialTheme {
         Scaffold(
             bottomBar = {
-                BottomNavigationBar(
-                    currentRoute = currentRoute(navController),
-                    onItemSelected = { route -> navController.navigate(route) }
-                )
+                if (currentRoute in bottomNavRoutes) {
+                    BottomNavigationBar(
+                        currentRoute = currentRoute,
+                        onItemSelected = { route -> navController.navigate(route) }
+                    )
+                }
             }
         ) { padding ->
             NavHost(
                 navController = navController,
-                startDestination = Screen.Home.route,
+                startDestination = Screen.Login.route,
                 modifier = Modifier.padding(padding)
             ) {
                 composable(Screen.Home.route) {
@@ -88,6 +86,16 @@ fun App() {
                 composable(Screen.Settings.route) {
                     SettingsScreen()
                 }
+                composable(Screen.Login.route) {
+                    LoginScreenWrapper(
+                        onLoginSuccess = {
+                            navController.navigate(Screen.Home.route) {
+                                popUpTo("login") { inclusive = true } // prevent going back to login
+                            }
+                        }
+                    )
+                }
+
             }
         }
     }
